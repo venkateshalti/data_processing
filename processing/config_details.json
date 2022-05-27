@@ -1,0 +1,18 @@
+{
+    "PRODUCTION": {
+                    "NAME": "venki"
+                    , "AGE":"30"
+                    , "JOB":"engineer"
+                }
+
+    , "TEST": {
+                    "NAME": "venkat"
+                    , "AGE":"31"
+                    , "JOB":"software engineer"
+                }
+    , "LOCAL": {
+                    "NAME": "venkatesh"
+                    , "AGE":"32"
+                    , "JOB":"sf engineer"
+                }
+}
