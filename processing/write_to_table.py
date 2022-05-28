@@ -28,6 +28,7 @@ date is YYYY-MM-DD format
 import mysql.connector  # connector module in mysql package has class to establish connection to database
 import os
 from dotenv import dotenv_values  # dotenv package makes it easier to read .env file during runtime
+import pandas as pd  # importing pandas as we are planning to create a dataframe with table data
 
 config = dotenv_values("../.env")  # create a .env file with USER, PASSWORD, HOST and DATABASE values for DB connection
 # .env should be created at one level higher than current script
@@ -58,4 +59,20 @@ params = ('venkat', '30', 'sfe', '1', '1989-01-17')
 cursor.execute(sql_write, params)
 
 conn.commit()
+#conn.close()
+
+# now, let's query the table and load to dataframe
+sql_query = """select * from customer """
+df = pd.read_sql(sql_query, conn)  # this works but we will get a warning. the right way is to use sqlachemy connection
+print(df)
 conn.close()
+
+# using sqlalchemy connection
+from sqlalchemy import create_engine
+
+engine = create_engine('mysql+mysqlconnector://'+config['USER']+':'+config['PASSWORD']+'@'+config['HOST']+':'
+                       +config['PORT']+'/'+config['DATABASE'], echo=False)
+
+data = pd.read_sql(sql_query, engine)
+print(data)
+engine.dispose()
